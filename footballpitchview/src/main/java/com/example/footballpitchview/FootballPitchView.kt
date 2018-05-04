@@ -4,6 +4,7 @@ package com.example.footballpitchview
  * Created by anweshmishra on 04/05/18.
  */
 
+import android.app.Activity
 import android.graphics.*
 import android.content.Context
 import android.view.View
@@ -130,6 +131,14 @@ class FootballPitchView (ctx : Context) : View(ctx) {
             footballPitch.startUpdating {
                 animator.start()
             }
+        }
+    }
+
+    companion object {
+        fun create(activity : Activity) : FootballPitchView {
+            val view : FootballPitchView = FootballPitchView(activity)
+            activity.setContentView(view)
+            return view 
         }
     }
 }
