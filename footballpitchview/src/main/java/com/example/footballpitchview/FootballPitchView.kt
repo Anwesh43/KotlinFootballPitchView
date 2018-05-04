@@ -90,6 +90,8 @@ class FootballPitchView (ctx : Context) : View(ctx) {
             val h : Float = canvas.height.toFloat()
             val r : Float = Math.min(w, h)/10
             val updatedH : Float = (h/2) * state.scales[0]
+            paint.strokeWidth = r/6
+            paint.strokeCap = Paint.Cap.ROUND
             canvas.save()
             canvas.translate(w/2, h/2)
             paint.style = Paint.Style.FILL
