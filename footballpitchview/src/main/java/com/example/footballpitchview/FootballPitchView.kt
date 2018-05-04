@@ -75,6 +75,33 @@ class FootballPitchView (ctx : Context) : View(ctx) {
                 animated = false
             }
         }
+    }
 
+    data class FootballPitch(var i : Int, val state : State = State()) {
+
+        fun draw(canvas : Canvas, paint : Paint) {
+            val w : Float = canvas.width.toFloat()
+            val h : Float = canvas.height.toFloat()
+            val r : Float = Math.min(w, h)/10
+            val updatedH : Float = (h/2) * state.scales[0]
+            canvas.save()
+            canvas.translate(w/2, h/2)
+            paint.style = Paint.Style.FILL
+            paint.color = Color.parseColor("#558B2F")
+            canvas.drawRect(RectF(-w/2, -updatedH, w/2, updatedH), paint)
+            paint.color = Color.WHITE
+            paint.style = Paint.Style.STROKE
+            canvas.drawLine(-w/2 * state.scales[1], 0f, w/2 * state.scales[1], 0f, paint)
+            canvas.drawArc(RectF(-r, -r, r, r), 0f, 360f * state.scales[2], false, paint)
+            canvas.restore()
+        }
+
+        fun startUpdating(startcb : () -> Unit) {
+            state.startUpdating(startcb)
+        }
+
+        fun update(stopcb : (Float) -> Unit) {
+            state.update(stopcb)
+        }
     }
 }
