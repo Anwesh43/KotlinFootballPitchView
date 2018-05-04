@@ -31,7 +31,7 @@ class FootballPitchView (ctx : Context) : View(ctx) {
 
     data class State (var prevScale : Float = 0f, var dir : Float = 0f, var j : Int = 0) {
 
-        val scales : Array<Float> = arrayOf(0f, 0f, 0f)
+        val scales : Array<Float> = arrayOf(0f, 0f, 0f, 0f, 0f)
 
         fun update(stopcb : (Float) -> Unit) {
             scales[j] += 0.1f * dir
@@ -101,6 +101,16 @@ class FootballPitchView (ctx : Context) : View(ctx) {
             paint.style = Paint.Style.STROKE
             canvas.drawLine(-w/2 * state.scales[1], 0f, w/2 * state.scales[1], 0f, paint)
             canvas.drawArc(RectF(-r, -r, r, r), 0f, 360f * state.scales[2], false, paint)
+            for (i in 0..1) {
+                val y : Float = -h/2 + (h - 2 * r + 2 * r * (1 - state.scales[3])) * i
+                canvas.save()
+                canvas.drawRect(-2*r, y, 2 * r,  y + 2*r*state.scales[3], paint)
+                canvas.save()
+                canvas.translate(0f, y + 2 * r * (1 -i))
+                canvas.drawArc(RectF(-r/2 , -r/2 , r/2, r/2), 180f * i, 180f * state.scales[4], false, paint)
+                canvas.restore()
+                canvas.restore()
+            }
             canvas.restore()
         }
 
