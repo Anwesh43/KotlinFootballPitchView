@@ -138,7 +138,7 @@ class FootballPitchView (ctx : Context) : View(ctx) {
         fun create(activity : Activity) : FootballPitchView {
             val view : FootballPitchView = FootballPitchView(activity)
             activity.setContentView(view)
-            return view 
+            return view
         }
     }
 }
